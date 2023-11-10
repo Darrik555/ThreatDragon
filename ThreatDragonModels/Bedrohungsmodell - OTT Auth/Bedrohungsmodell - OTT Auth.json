@@ -55,8 +55,8 @@
           },
           {
             "position": {
-              "x": 270.99999999999994,
-              "y": -10.999999999999936
+              "x": 233,
+              "y": -210
             },
             "size": {
               "width": 130,
@@ -67,8 +67,8 @@
                 "text": "Login System -\nWebapp +\nMobile App"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -83,14 +83,54 @@
               "isTrustBoundary": false,
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "threats": [],
-              "hasOpenThreats": false
+              "threats": [
+                {
+                  "id": "1777d6b4-2081-43ff-8574-bef72976e8fc",
+                  "title": "Session Fixation",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "CAPEC-61: Session Fixation\nThe attacker induces a client to establish a session with the target software using a session identifier provided by the attacker. Once the user successfully authenticates to the target software, the attacker uses the (now privileged) session identifier in their own transactions. This attack leverages the fact that the target software either relies on client-generated session identifiers or maintains the same session identifiers after privilege elevation.\n\nBrowser Session Hijacking T1185",
+                  "mitigation": "Session managment mechanismen benutzen die nur lokal generierte session identifiers zulassen \n\nNetwork Traffic Community Deviation\nD3-NTCD\n\n\nMASVS-AUTH-1 The app uses secure authentication and authorization protocols and follows \nthe relevant best practices.\nASVS \n1.2.2 Verify that communications between application components, including APIs,\nmiddleware and data layers, are authenticated. Components should have the\nleast necessary privileges needed. \n\nUse a strict session management mechanism that only accepts locally generated session identifiers: This prevents attackers from fixating session identifiers of their own choice.\nRegenerate and destroy session identifiers when there is a change in the level of privilege: This ensures that even though a potential victim may have followed a link with a fixated identifier, a new one is issued when the level of privilege changes.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 102,
+                  "score": "1,8"
+                },
+                {
+                  "id": "31c50fe0-98c8-4adf-bc90-ffbc88c564e1",
+                  "title": "Spoofing",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "An attacker could potentially create a fake login page to trick users into providing their login credentials\n\nCredential Access TA0006",
+                  "mitigation": "2FA\n\nAuthentication Event Thresholding\nD3-ANET\n\n\nMASVS-AUTH-1 The app uses secure authentication and authorization protocols and follows \nthe relevant best practices.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 103,
+                  "score": "3,2"
+                },
+                {
+                  "id": "1116cdf3-3a7e-4965-a2fc-47cc24b0d529",
+                  "title": "Buffer Overflow in an API Call",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "Buffer Overflow in an API Call\nThis attack targets libraries or shared code modules which are vulnerable to buffer overflow attacks. An adversary who has knowledge of known vulnerable libraries or shared code can easily target software that makes use of these libraries. All clients that make use of the code library thus become vulnerable by association. This has a very broad effect on security across a system, usually affecting more than one software process.",
+                  "mitigation": "Use a language or compiler that performs automatic bounds checking.\n\nInbound Traffic Filtering\nD3-ITF\n\nASVS\n14.1.2 Verify that compiler flags are configured to enable all available buffer\noverflow protections and warnings, including stack randomization, data\nexecution prevention, and to break the build if an unsafe po",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 112,
+                  "score": "7,4"
+                }
+              ],
+              "hasOpenThreats": true
             }
           },
           {
             "position": {
-              "x": 488,
-              "y": -11.999999999999922
+              "x": 521,
+              "y": -27
             },
             "size": {
               "width": 130,
@@ -98,7 +138,7 @@
             },
             "attrs": {
               "text": {
-                "text": "2-Faktor-Authe\nntifizierungsdi\nenst"
+                "text": "2-Faktor-Authe\nntifizierungsdi\nenst Kryptogrphie Stand. Software"
               },
               "body": {
                 "stroke": "#333333",
@@ -111,13 +151,27 @@
             "zIndex": 3,
             "id": "94f68ce7-aa88-45a4-ba41-c0b62d6a959c",
             "data": {
-              "name": "2-Faktor-Authe\nntifizierungsdi\nenst",
+              "name": "2-Faktor-Authe\nntifizierungsdi\nenst Kryptogrphie Stand. Software",
               "description": "",
               "type": "tm.Flow",
               "isTrustBoundary": false,
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "threats": [],
+              "threats": [
+                {
+                  "id": "53df5fe7-8307-4bfc-822d-713d94ff4234",
+                  "title": "XSS Through HTTP Headers",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "CAPEC-86: XSS Through HTTP Headers\n\nAn adversary exploits web applications that generate web content, such as links in a HTML page, based on unvalidated or improperly validated data submitted by other actors. XSS in HTTP Headers attacks target the HTTP headers which are hidden from most users and may not be validated by web applications.\n\nProcess Injection T1055\n",
+                  "mitigation": "Nur Https erlauben \n\nASVS\n14.4.3 Verify that a Content Security Policy (CSP) response header is in place that\nhelps mitigate impact for XSS attacks like HTML, DOM, JSON, and JavaScript\ninjection vulnerabilities.\n\nMandatory Access Control\nD3-MAC\n\nMASVS-RESILIENCE-1 The app validates the integrity of the platform.\n\nImplementation: Ensure all content that is delivered to client is sanitized against an acceptable content specification.\nImplementation: Perform input validation for all remote content.\nImplementation: Perform output validation for all remote content.\nImplementation: Disable scripting languages such as JavaScript in browser\nImplementation: Session tokens for specific host\nImplementation: Patching software. There are many attack vectors for XSS on the client side and the server side. Many vulnerabilities are fixed in service packs for browser, web servers, and plug in technologies, staying current on patch release that deal with XSS countermeasures mitigates this.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 115,
+                  "score": "8"
+                }
+              ],
               "hasOpenThreats": false,
               "isBidirectional": false,
               "protocol": "",
@@ -361,62 +415,6 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "1. Auth Challenge",
-              "description": "",
-              "outOfScope": false,
-              "isBidirectional": false,
-              "reasonOutOfScope": "",
-              "protocol": "",
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": [],
-              "isTrustBoundary": false
-            },
-            "id": "35f9f840-c060-4c31-bf9a-0e17a95ddf66",
-            "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Login"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "dec51efb-bf55-4b9c-a294-0e45f4e823f6"
-            },
-            "target": {
-              "cell": "a1d5bbe6-465f-43bb-bd96-7ce687db37aa"
-            },
-            "vertices": [
-              {
-                "x": 237,
-                "y": 39
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
               "name": "Erwarteter OTT",
               "description": "",
               "outOfScope": false,
@@ -448,112 +446,10 @@
             },
             "vertices": [
               {
-                "x": 440,
-                "y": -10
+                "x": 410,
+                "y": -110
               }
             ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "2. Weiterleitung\nTelefonnummer",
-              "description": "",
-              "outOfScope": false,
-              "isBidirectional": false,
-              "reasonOutOfScope": "",
-              "protocol": "",
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": [],
-              "isTrustBoundary": false
-            },
-            "id": "63356151-e316-4a82-8224-9a7c729cfbee",
-            "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Erwarteter OTT"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "94f68ce7-aa88-45a4-ba41-c0b62d6a959c"
-            },
-            "target": {
-              "cell": "a1d5bbe6-465f-43bb-bd96-7ce687db37aa"
-            },
-            "vertices": []
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "2a. Telefonnummer",
-              "description": "",
-              "outOfScope": false,
-              "isBidirectional": false,
-              "reasonOutOfScope": "",
-              "protocol": "",
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": [],
-              "isTrustBoundary": false
-            },
-            "id": "3f9c3edd-4fe5-4fc4-9239-2ca13291fc25",
-            "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "Telefonnummer, OTT"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "94f68ce7-aa88-45a4-ba41-c0b62d6a959c"
-            },
-            "target": {
-              "cell": "fd7303e8-29d2-4d76-bf7d-87eb619ede69"
-            },
-            "vertices": []
           },
           {
             "shape": "flow",
@@ -837,201 +733,6 @@
             ]
           },
           {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "5. OTT",
-              "description": "",
-              "outOfScope": false,
-              "isBidirectional": false,
-              "reasonOutOfScope": "",
-              "protocol": "",
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": [],
-              "isTrustBoundary": false
-            },
-            "id": "8ac1d684-1f9a-402f-9a0a-b946ddeac40c",
-            "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "5. OTT"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "8055dd60-0b8b-4b7d-963e-f6d196408ee1"
-            },
-            "target": {
-              "cell": "a1d5bbe6-465f-43bb-bd96-7ce687db37aa"
-            },
-            "vertices": [
-              {
-                "x": 1230,
-                "y": 510
-              },
-              {
-                "x": 1160,
-                "y": 760
-              },
-              {
-                "x": 483,
-                "y": 706
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "5. OTT",
-              "description": "",
-              "outOfScope": false,
-              "isBidirectional": false,
-              "reasonOutOfScope": "",
-              "protocol": "",
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": [],
-              "isTrustBoundary": false
-            },
-            "id": "933956cd-ca11-454c-ab3b-f9d74604ea75",
-            "labels": [
-              {
-                "position": 0.5,
-                "attrs": {
-                  "label": {
-                    "text": "5. OTT"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "18014c60-7665-472f-9474-10a666ec5f01"
-            },
-            "target": {
-              "cell": "a1d5bbe6-465f-43bb-bd96-7ce687db37aa"
-            },
-            "vertices": [
-              {
-                "x": 1102,
-                "y": 657
-              },
-              {
-                "x": 675,
-                "y": 720
-              },
-              {
-                "x": 370,
-                "y": 550
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Boundary",
-              "name": "Firma Allsecure",
-              "description": "",
-              "outOfScope": false,
-              "isBidirectional": false,
-              "reasonOutOfScope": "",
-              "protocol": "",
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": [],
-              "isTrustBoundary": true
-            },
-            "id": "5cec2d40-ad2c-4308-b8d1-d9680e512719",
-            "labels": [
-              {
-                "position": {
-                  "distance": 0.3711903332496362,
-                  "offset": 21.871123888541472
-                },
-                "attrs": {
-                  "label": {
-                    "text": "5. OTT"
-                  }
-                }
-              }
-            ],
-            "source": {
-              "cell": "166a4763-016a-486b-92df-a86adc8bab82"
-            },
-            "target": {
-              "cell": "a1d5bbe6-465f-43bb-bd96-7ce687db37aa"
-            },
-            "vertices": [
-              {
-                "x": 799,
-                "y": 672
-              },
-              {
-                "x": 529,
-                "y": 636
-              },
-              {
-                "x": 430,
-                "y": 430
-              }
-            ]
-          },
-          {
             "shape": "trust-broundary-curve",
             "width": 200,
             "height": 100,
@@ -1068,20 +769,24 @@
             },
             "vertices": [
               {
+                "x": 410,
+                "y": 190
+              },
+              {
                 "x": 623,
                 "y": 156
               },
               {
-                "x": 638,
-                "y": -46
+                "x": 720,
+                "y": -90
               },
               {
-                "x": 550,
-                "y": -204
+                "x": 720,
+                "y": -350
               },
               {
-                "x": 340,
-                "y": -174
+                "x": 243,
+                "y": -370
               },
               {
                 "x": 243,
@@ -1132,12 +837,28 @@
                 "y": -291
               },
               {
+                "x": 1240,
+                "y": -190
+              },
+              {
                 "x": 1275,
                 "y": -81
               },
               {
-                "x": 1230,
-                "y": 169
+                "x": 1240,
+                "y": 100
+              },
+              {
+                "x": 1210,
+                "y": 140
+              },
+              {
+                "x": 1194,
+                "y": 139
+              },
+              {
+                "x": 1130,
+                "y": 139
               },
               {
                 "x": 945,
@@ -1296,8 +1017,8 @@
             },
             "vertices": [
               {
-                "x": 559.5,
-                "y": -60
+                "x": 470,
+                "y": -160
               }
             ]
           },
@@ -1417,6 +1138,308 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
+              "name": "monthlyReport(signiert, verschlüsselt)",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "a9c862c1-6669-43d2-9ddc-94dd10368ef6",
+            "labels": [
+              "monthlyReport(signiert, verschlüsselt)"
+            ],
+            "source": {
+              "cell": "cc273bb0-ffe9-4cf3-9c05-bfa41d20b979"
+            },
+            "target": {
+              "cell": "a3b3fa87-6598-4b58-832f-c8847eb49abc"
+            },
+            "vertices": [
+              {
+                "x": 420,
+                "y": -390
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Data Flow",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "490844f7-5c96-4ea1-86f8-ce0658445a6d",
+            "labels": [
+              "monitor"
+            ],
+            "source": {
+              "cell": "b49f3d60-c290-47b0-9745-ec07d33cfd71"
+            },
+            "target": {
+              "cell": "d0fdeb12-7e1b-4d48-b2e8-daed529d0eea"
+            },
+            "vertices": [
+              {
+                "x": 580,
+                "y": -90
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "monitor",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "08f3d7da-7b57-483f-a282-b6143f42bfd3",
+            "labels": [
+              "monitor"
+            ],
+            "source": {
+              "cell": "b49f3d60-c290-47b0-9745-ec07d33cfd71"
+            },
+            "target": {
+              "cell": "94f68ce7-aa88-45a4-ba41-c0b62d6a959c"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "1. Auth Challenge",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "35f9f840-c060-4c31-bf9a-0e17a95ddf66",
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "Login"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "dec51efb-bf55-4b9c-a294-0e45f4e823f6"
+            },
+            "target": {
+              "cell": "a1d5bbe6-465f-43bb-bd96-7ce687db37aa"
+            },
+            "vertices": [
+              {
+                "x": 210,
+                "y": 60.5
+              },
+              {
+                "x": 237,
+                "y": 39
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "OTT",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "b742680a-e8f5-4676-aabf-34f177625c79",
+            "labels": [
+              "OTT"
+            ],
+            "source": {
+              "cell": "d0fdeb12-7e1b-4d48-b2e8-daed529d0eea"
+            },
+            "target": {
+              "cell": "a1d5bbe6-465f-43bb-bd96-7ce687db37aa"
+            },
+            "vertices": [
+              {
+                "x": 310,
+                "y": 40
+              },
+              {
+                "x": 310,
+                "y": -10
+              },
+              {
+                "x": 330,
+                "y": -30
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Data Flow",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "aee47896-d42b-40e6-8930-5f0d9234077f",
+            "labels": [
+              "Erwarteter OTT"
+            ],
+            "source": {
+              "cell": "94f68ce7-aa88-45a4-ba41-c0b62d6a959c"
+            },
+            "target": {
+              "cell": "a1d5bbe6-465f-43bb-bd96-7ce687db37aa"
+            },
+            "vertices": [
+              {
+                "x": 310,
+                "y": -50
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
               "name": "Antwort",
               "description": "",
               "outOfScope": false,
@@ -1452,6 +1475,10 @@
             "vertices": [
               {
                 "x": 760,
+                "y": -10
+              },
+              {
+                "x": 790,
                 "y": -10
               }
             ]
@@ -1516,9 +1543,189 @@
             ]
           },
           {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Data Flow",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "b87ff300-f6bd-4c02-854a-3c038db3bef5",
+            "source": {
+              "cell": "94f68ce7-aa88-45a4-ba41-c0b62d6a959c"
+            },
+            "target": {
+              "cell": "fd7303e8-29d2-4d76-bf7d-87eb619ede69"
+            },
+            "labels": [
+              "Telefonnummer"
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "OTT",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "f92ac291-8b59-4434-9276-8dde4872c457",
+            "source": {
+              "cell": "fd7303e8-29d2-4d76-bf7d-87eb619ede69"
+            },
+            "target": {
+              "cell": "d0fdeb12-7e1b-4d48-b2e8-daed529d0eea"
+            },
+            "labels": [
+              "OTT"
+            ],
+            "vertices": [
+              {
+                "x": 240,
+                "y": 410
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "weeklyReport(signiert,verschlüsselt)",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "7d2a440a-fb73-4f8c-8a0c-a7059537a0d4",
+            "labels": [
+              "weeklyReport(signiert,verschlüsselt)"
+            ],
+            "source": {
+              "cell": "b49f3d60-c290-47b0-9745-ec07d33cfd71"
+            },
+            "target": {
+              "cell": "a3b3fa87-6598-4b58-832f-c8847eb49abc"
+            },
+            "vertices": [
+              {
+                "x": 700.5,
+                "y": -280
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Data Flow",
+              "description": "",
+              "outOfScope": false,
+              "isBidirectional": false,
+              "reasonOutOfScope": "",
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "hasOpenThreats": false,
+              "threats": []
+            },
+            "id": "b9e6597b-0afb-424e-99aa-83183a4623b1",
+            "labels": [
+              "Auslesen "
+            ],
+            "source": {
+              "cell": "cc273bb0-ffe9-4cf3-9c05-bfa41d20b979"
+            },
+            "target": {
+              "cell": "94f68ce7-aa88-45a4-ba41-c0b62d6a959c"
+            }
+          },
+          {
             "position": {
-              "x": 410,
-              "y": -174
+              "x": 451,
+              "y": -330
             },
             "size": {
               "width": 120,
@@ -1529,11 +1736,13 @@
                 "text": "Log-DB"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -1542,17 +1751,47 @@
             "zIndex": 11,
             "id": "c2716661-ef88-48a8-8d0f-724e1923d562",
             "data": {
-              "type": "tm.Store",
+              "type": "tm.Flow",
               "name": "Log-DB",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
               "isALog": true,
               "storesCredentials": false,
-              "isEncrypted": true,
+              "isEncrypted": false,
               "isSigned": true,
-              "hasOpenThreats": false,
-              "threats": []
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "4e16e6f2-ba49-4134-8589-cc84d21113f6",
+                  "title": "Exploitation of Improperly Configured or Implemented Memory Protections Repudiation",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "CAPEC-679: Exploitation of Improperly Configured or Implemented Memory Protections\n\nLogs so verändern das ein eingriff nicht auffällt\n ",
+                  "mitigation": "Disk Encryption\nD3-DENCR\n\nASVS \n5.4.2 Verify that format strings do not take potentially hostile input, and are\nconstant",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 113,
+                  "score": "6,8"
+                },
+                {
+                  "id": "e53a62ce-2fdf-4faa-8a45-35950ef06e2b",
+                  "title": "CAPEC-81: Web Server Logs Tampering",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Web Logs Tampering attacks involve an attacker injecting, deleting or otherwise tampering with the contents of web logs typically for the purposes of masking other malicious behavior. Additionally, writing malicious data to log files may target jobs, filters, reports, and other agents that process the logs in an asynchronous attack pattern. This pattern of attack is similar to \"Log Injection-Tampering-Forging\" except that in this case, the attack is targeting the logs of the web server and not the application.\n\nLog Enumeration T1654\n\n\n",
+                  "mitigation": "Design: Use input validation before writing to web log\nDesign: Validate all log data before it is output\n\nInput Device Analysis\nD3-IDA\n\nASVS \n1.7.2 Verify that logs are securely transmitted to a preferably remote system for\nanalysis, detection, alerting, and escalation\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 117,
+                  "score": "7,2"
+                }
+              ],
+              "isBidirectional": false,
+              "protocol": "",
+              "isPublicNetwork": false
             }
           },
           {
@@ -1637,19 +1876,248 @@
               "protocol": "",
               "isPublicNetwork": false
             }
+          },
+          {
+            "position": {
+              "x": 271,
+              "y": 13
+            },
+            "size": {
+              "width": 130,
+              "height": 160
+            },
+            "attrs": {
+              "text": {
+                "text": "Mobile Phone\n OTT Service"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 14,
+            "id": "d0fdeb12-7e1b-4d48-b2e8-daed529d0eea",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Mobile Phone\n OTT Service",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "privilegeLevel": "",
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "90b55c48-e4ee-4d10-82d5-af57d51f3c4d",
+                  "title": "Passive Fingerprinting",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "CAPEC-313\nAn adversary engages in activity to detect the version or type of OS software in a an environment by passively monitoring communication between devices, nodes, or applications. Passive techniques for operating system detection send no actual probes to a target, but monitor network or client-server communication between nodes in order to identify operating systems based on observed behavior as compared to a database of known signatures or values. While passive OS fingerprinting is not usually as reliable as active methods, it is generally better able to evade detection.\n\nTaktik:\nSystem Information Discovery T1082",
+                  "mitigation": "Https response verschleiern\n\nMandatory Access Control D3-MAC\nASVS\nV5.3 Output Encoding and Injection Prevention\nOutput encoding close or adjacent to the interpreter in use is critical to the security of any application.\nTypically, output encoding is not persisted, but used to render the output safe in the appropriate output\ncontext for immediate use. Failing to output encode will result in an insecure, injectable, and unsafe\napplication.\n\nMASVS \ndata is treated as untrusted input and is properly verified and sanitized \n--up-to-date platform versions",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 101,
+                  "score": "3,4"
+                }
+              ],
+              "isBidirectional": false,
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false
+            }
+          },
+          {
+            "position": {
+              "x": 541,
+              "y": -260
+            },
+            "size": {
+              "width": 110,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "SIEM-System"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 15,
+            "id": "b49f3d60-c290-47b0-9745-ec07d33cfd71",
+            "data": {
+              "type": "tm.Flow",
+              "name": "SIEM-System",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "privilegeLevel": "",
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "a59d6141-56a0-4eaa-974e-9df12a5755fc",
+                  "title": "Log Injection",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "CAPEC-81: Web Server Logs Tampering\nWeb Logs Tampering attacks involve an attacker injecting, deleting or otherwise tampering with the contents of web logs typically for the purposes of masking other malicious behavior. Additionally, writing malicious data to log files may target jobs, filters, reports, and other agents that process the logs in an asynchronous attack pattern. This pattern of attack is similar to \"Log Injection-Tampering-Forging\" except that in this case, the attack is targeting the logs of the web server and not the application.\n\nAccount Discovery T1087",
+                  "mitigation": "Use input validation before writing to web log\n\nASVS \n1.7.2 Verify that logs are securely transmitted to a preferably remote system for\nanalysis, detection, alerting, and escalation. \n\nExecutable Allowlisting\nD3-EAL",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 104,
+                  "score": ""
+                },
+                {
+                  "id": "688fc615-9527-4070-9c4c-5c7a83ca9a4c",
+                  "title": "Exploiting Incorrectly Configured Access Control Security Levels",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "CAPEC-180: Exploiting Incorrectly Configured Access Control Security Levels\nAn attacker exploits a weakness in the configuration of access controls and is able to bypass the intended protection that these measures guard against and thereby obtain unauthorized access to the system or network. Sensitive functionality should always be protected with access controls. However configuring all but the most trivial access control systems can be very complicated and there are many opportunities for mistakes. If an attacker can learn of incorrectly configured access security settings, they may be able to exploit this in an attack.\n\nValid AccountsT1078\n\n",
+                  "mitigation": "Ensure that protected and unprotected memory ranges are isolated and do not overlap.\nIf memory regions must overlap, leverage memory priority schemes if memory regions can overlap.\nEnsure that original and mirrored memory regions apply the same protections.\nEnsure immutable code or data is programmed into ROM or write-once memory.\n\nAccount Locking\nD3-AL\n\n14.1.3 Verify that server configuration is hardened as per the recommendations of\nthe application server and frameworks in use.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 114,
+                  "score": "8"
+                }
+              ],
+              "isBidirectional": false,
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false
+            }
+          },
+          {
+            "position": {
+              "x": 680,
+              "y": -470
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Managment"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 16,
+            "id": "a3b3fa87-6598-4b58-832f-c8847eb49abc",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Managment",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "providesAuthentication": false,
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "4f68fa43-4a1b-4b43-aec7-a52c8e6e63ea",
+                  "title": "Pretexting via Tech Support",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "An adversary engages in pretexting behavior, assuming the role of a tech support worker, to solicit information from target persons, or manipulate the target into performing an action that serves the adversary's interests. An adversary who uses social engineering to impersonate a tech support worker can have devastating effects on a network. This is an effective attack vector, because it can give an adversary physical access to network computers. It only takes a matter of seconds for someone to compromise a computer with physical access. One of the best technological tools at the disposal of a social engineer, posing as a technical support person, is a USB thumb drive. These are small, easy to conceal, and can be loaded with different payloads depending on what task needs to be done. However, this form of attack does not require physical access as it can also be effectively carried out via phone or email.",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 111,
+                  "score": "6,5"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 233,
+              "y": -360
+            },
+            "size": {
+              "width": 60,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Export\n Prozess"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 17,
+            "id": "cc273bb0-ffe9-4cf3-9c05-bfa41d20b979",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Export\n Prozess",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "privilegeLevel": "",
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "7288ef43-b1f2-4d52-ba77-fa1d78a36ddc",
+                  "title": "Try Common or Default Usernames and Passwords -- Elev of Privile",
+                  "status": "Mitigated",
+                  "severity": "Low",
+                  "type": "Tampering",
+                  "description": "CAPEC-70: Try Common or Default Usernames and Passwords\n\nValid Accounts T1078",
+                  "mitigation": "Delete all default account credentials that may be put in by the product vendor.\nImplement a password throttling mechanism. This mechanism should take into account both the IP address and the log in name of the user.\nPut together a strong password policy and make sure that all user created passwords comply with it. Alternatively automatically generate strong passwords for users.\nPasswords need to be recycled to prevent aging, that is every once in a while a new password must be chosen.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 116,
+                  "score": ""
+                },
+                {
+                  "id": "c0040a71-8a29-4f87-baa3-809a7eca0065",
+                  "title": "CAPEC-485: Signature Spoofing by Key Recreation",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "CAPEC-485: Signature Spoofing by Key Recreation\nAn attacker obtains an authoritative or reputable signer's private signature key by exploiting a cryptographic weakness in the signature algorithm or pseudorandom number generation and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.\n",
+                  "mitigation": "Ensure cryptographic elements have been sufficiently tested for weaknesses\n\nUser Data Transfer Analysis\nD3-UDTA\n\nASVS \n1.6.1 Verify that there is an explicit policy for management of cryptographic keys\nand that a cryptographic key lifecycle follows a key management standard\nsuch as NIST SP 800-57.\n\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 118,
+                  "score": "5,6"
+                }
+              ],
+              "isBidirectional": false,
+              "protocol": "",
+              "isEncrypted": false,
+              "isPublicNetwork": false
+            }
           }
         ],
         "version": "2.1.1",
         "title": "Architekturdiagramm",
-        "thumbnail": "./public/content/images/thumbnail.jpg",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
         "id": 0,
-        "diagramType": "Generic",
-        "placeholder": "New generic diagram description"
+        "diagramType": "STRIDE"
       }
     ],
     "reviewer": "Georg Neugebauer",
     "diagramTop": 10,
-    "threatTop": 100
+    "threatTop": 118
   },
   "version": "2.1.1"
 }
